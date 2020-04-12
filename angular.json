@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "practicaAngular"
+    }
+  },
+  "defaultProject": "practicaAngular",
+  "cli": {
+    "analytics": false
+  }
 }
