@@ -8,15 +8,15 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '/home', component: HomeComponent},
-  {path: '/monitor', component: ProductMainComponent},
-  {path: '/product', component: ProductMainComponent,
+  {path: '', redirectTo: './home', pathMatch: 'full'},
+  {path: './home', component: HomeComponent},
+  {path: './monitor', component: ProductMainComponent},
+  {path: './product', component: ProductMainComponent,
     children: [
-      {path: '/new', component: ProductEditComponent},
-      {path: '/:id', component: ProductDetailComponent,
+      {path: './new', component: ProductEditComponent},
+      {path: './:id', component: ProductDetailComponent,
         children: [
-          {path: '/edit', component: ProductEditComponent}
+          {path: './edit', component: ProductEditComponent}
         ]},
     ]},
     {path: '**', component: NotFoundComponent}
