@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Product } from 'src/app/products/Product';
+import { ProductsService } from 'src/app/products/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  @Input() products: Product[];
+  @Output() selected = new EventEmitter();
+  @Output() howManySelected = new EventEmitter();
+  selectedCount = 0;
+
+  currentURL = '';
+
+  constructor(private productService: ProductsService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    console.log('this is product component', this.products);
+    this.currentURL = this.router.url;
+  }
+
+  deleteProduct(id) {
+    if (this.currentURL === '/product') {
+      this.productService.deleteProduct(id);
+    } else {
+      this.productService.deleteMonitoredProduct(id);
+    }
+  }
+
+  selectedItem(event, id) {
+    if (event.target.checked) {
+      this.selected.emit({uid: id, checked: true});
+      this.selectedCount ++;
+      this.howManySelected.emit(this.selectedCount);
+    } else {
+      this.selected.emit({uid: id, checked: false});
+      this.selectedCount --;
+      this.howManySelected.emit(this.selectedCount);
+    }
   }
 
 }

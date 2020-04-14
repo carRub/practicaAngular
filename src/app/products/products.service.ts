@@ -19,9 +19,11 @@ export class ProductsService {
 
 
   constructor() {
-    this.products = [new Product(1, 'smartTV', 'Samsung', 'Samsung smartTv', 15000, 13, this.dummySpecification),
-                    new Product(1, 'smartPhone', 'Huawei', 'Huawei smartphone', 5500, 10, this.dummySpecification),
-                    new Product(1, 'smartWathc', 'HTC', 'HTC smartwatch', 3500, 8, this.dummySpecification)];
+    this.products = [new Product(1, 'smartTV', 'Samsung', 'Samsung 50 inches', 15000, 13, this.dummySpecification),
+                    new Product(2, 'smartPhone', 'Huawei', 'Huawei P30', 5500, 10, this.dummySpecification),
+                    new Product(3, 'smartWatch', 'HTC', 'HTC smartwatch', 3500, 8, this.dummySpecification),
+                    new Product(4, 'smartFridge', 'GE', 'GE smartFridge 15 inches', 25000, 5, this.dummySpecification),
+                    new Product(5, 'Alexa', 'Amazon', 'Amazon Alexa', 2500, 12, this.dummySpecification)];
   }
 
   // get
