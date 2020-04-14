@@ -5,20 +5,20 @@
              class="form-control" [(ngModel)]="searchValue" (keydown.enter)="search()" name="" id="" aria-describedby="helpId" placeholder="">
         </div> 
         <div>
-            <a name="" id="" (click)="search()" class="btn btn-primary" href="#" role="button"   >Buscar producto</a>
+            <a name="" id="" (click)="search()" class="btn btn-primary" href="#" routerLink="./" role="button"   >Buscar producto</a>
         </div>
-        <div  class="ml-2">
+        <div *ngIf="!monitor" class="ml-2">
             <a nclass="btn btn-success" (click)="updateMonitoredProducts()" href="#" routerLink="../monitor" role="button" >Añadir seleccionados a monitoreados</a>
         </div>
     </div>
 
     <div class=" mt-2">
         <ul>
-            <app-product *ngIf="!monitor" [products]="products" (selected)="addMonitoredProducts($event)" (howManySelected)="howManyAreSelected($event)"></app-product>
-            <app-product *ngIf="monitor" [products]="monitoredProductsArray"></app-product>
+            <app-product *ngIf="!monitor" [products]="searchResult" (selected)="addMonitoredProducts($event)" (howManySelected)="howManyAreSelected($event)"></app-product>
+            <app-product *ngIf="monitor" [products]="searchResult" [monitor]="monitor"></app-product>
         </ul>
         <p>Seleccionados: {{selectedCount}}</p>
-        <div class="alert alert-danger" role="alert"   >
-            <strong>Ningún producto concuerda con la búsqueda</strong>
+        <div *ngIf="!found" class="alert alert-danger" role="alert"   >
+            <strong >Ningún producto concuerda con la búsqueda</strong>
         </div>
     </div>

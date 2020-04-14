@@ -13,10 +13,11 @@ import { Subscription } from 'rxjs';
 })
 export class ProductListComponent implements OnInit {
 
-  //URL and search bar values
+  // URL and search bar values
   searchValue = '';
   currentURL = '';
   monitor = false;
+  found = true;
   selectedCount = 0;
 
   // monitored products and products in general
@@ -42,6 +43,9 @@ export class ProductListComponent implements OnInit {
     this.productsSubscription = this.productService.productsSubject.subscribe(
       (newProducts: Product[]) => {
         this.products = newProducts;
+        if (!this.monitor) {
+          this.searchResult = this.products;
+        }
       }
     );
 
@@ -49,6 +53,14 @@ export class ProductListComponent implements OnInit {
       (newMonitoredProducts: Set<any>) => {
         this.monitoredProductsSet = newMonitoredProducts;
         this.updateMonitoredProducts();
+        if (this.monitor) {
+          this.searchResult = this.monitoredProductsArray;
+        }
+        if (this.searchResult.length === 0) {
+          this.found = false;
+        } else {
+          this.found = true;
+        }
       }
     );
 
@@ -57,6 +69,12 @@ export class ProductListComponent implements OnInit {
     if (this.currentURL === '/monitor') {
       this.monitor = true;
       this.updateMonitoredProducts();
+      this.searchResult = this.monitoredProductsArray;
+      if (this.searchResult.length === 0) {
+        this.found = false;
+      } else {
+        this.found = true;
+      }
     }
   }
 
@@ -66,7 +84,16 @@ export class ProductListComponent implements OnInit {
       this.monitor = false;
       this.searchResult = this.products.filter(o => o.nombre.toUpperCase().includes(this.searchValue.toUpperCase()) ||
       o.descripcion.toUpperCase().includes(this.searchValue.toUpperCase()));
-    } // else //this.monitor = true
+    } else { // else //this.monitor = true
+      this.monitor = true;
+      this.searchResult = this.monitoredProductsArray.filter(o => o.nombre.toUpperCase().includes(this.searchValue.toUpperCase()) ||
+      o.descripcion.toUpperCase().includes(this.searchValue.toUpperCase()));
+    }
+    if (this.searchResult.length === 0) {
+      this.found = false;
+    } else {
+      this.found = true;
+    }
   }
 
   updateMonitoredProducts() {

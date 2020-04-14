@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ProductComponent implements OnInit {
 
   @Input() products: Product[];
+  @Input() monitor: boolean;
   @Output() selected = new EventEmitter();
   @Output() howManySelected = new EventEmitter();
   selectedCount = 0;
